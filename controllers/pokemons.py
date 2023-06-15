@@ -7,9 +7,6 @@ import os
 load_dotenv('.env')
 API_URL = os.getenv("API_URL")
 
-load_dotenv('.env')
-API_URL = os.getenv("API_URL")
-
 def countByLetter(letter: str):
   if not letter.isalpha():
     StatusCode = 404
