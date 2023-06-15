@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv('.env')
-apiUrl = os.getenv("API_URL")
+API_URL = os.getenv("API_URL")
+
+load_dotenv('.env')
+API_URL = os.getenv("API_URL")
 
 def countByLetter(letter: str):
   if not letter.isalpha():
@@ -14,7 +17,7 @@ def countByLetter(letter: str):
       "error": "El parámetro 'letter' debe ser una letra.",
       }
   else:
-    allPokemonsRequest = requests.get(f"{apiUrl}/pokemon?limit=1281")
+    allPokemonsRequest = requests.get(f"{API_URL}/pokemon?limit=1281")
     allPokemons = json.loads(allPokemonsRequest.text)
     filteredPokemons = [
       pokemon['name'] for pokemon in allPokemons['results'] if letter.lower() in pokemon['name'].lower()
@@ -28,7 +31,7 @@ def countByLetter(letter: str):
   return response
 
 def getTypes():
-  typesRequest = requests.get(f"{apiUrl}/type")
+  typesRequest = requests.get(f"{API_URL}/type")
   types = json.loads(typesRequest.text)
   typesName = [
     pokemon['name'] for pokemon in types['results']
@@ -41,7 +44,7 @@ def getTypes():
   return response
 
 def getAllByType(pokemonType: str):
-  typesRequest = requests.get(f"{apiUrl}/type")
+  typesRequest = requests.get(f"{API_URL}/type")
   types = json.loads(typesRequest.text)
   typesName = [
     pokemon['name'] for pokemon in types['results']
@@ -52,7 +55,7 @@ def getAllByType(pokemonType: str):
       "error": f"El parámetro '{pokemonType}' no corresponde a un tipo de pokemon",
       }
   else:
-    typePkemonsRequest = requests.get(f"{apiUrl}/type/{pokemonType}")
+    typePkemonsRequest = requests.get(f"{API_URL}/type/{pokemonType}")
     typePokemons = json.loads(typePkemonsRequest.text)
     pokemons = [
       pokemonObject['pokemon']['name'] for pokemonObject in typePokemons['pokemon']
