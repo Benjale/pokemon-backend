@@ -1,8 +1,16 @@
+import logging
 from fastapi.responses import JSONResponse
 import requests
 import json
 from dotenv import load_dotenv
 import os
+
+load_dotenv('.env')
+API_URL = os.getenv("API_URL")
+
+# Configurar el registro
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+logger = logging.getLogger()
 
 load_dotenv('.env')
 API_URL = os.getenv("API_URL")
@@ -14,7 +22,7 @@ def countByLetter(letter: str):
       "error": "El parámetro 'letter' debe ser una letra.",
       }
   else:
-    print(f"{API_URL}/pokemon?limit=1281")
+    logger.debug(f"API URL: {API_URL}")
     allPokemonsRequest = requests.get(f"{API_URL}/pokemon?limit=1281")
     allPokemons = json.loads(allPokemonsRequest.text)
     filteredPokemons = [
